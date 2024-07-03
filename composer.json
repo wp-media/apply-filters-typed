@@ -19,5 +19,15 @@
         "files": [
             "functions.php"
         ]
+    },
+    "autoload-dev": {
+		"psr-4": {
+			"WP_Media\\ApplyFiltersTyped\\Tests\\": "tests/"
+		}
+	},
+    "scripts": {
+        "phpcs": "phpcs --basepath=.",
+        "phpstan": "vendor/bin/phpstan analyze --memory-limit=2G --no-progress",
+        "test-unit": "\"vendor/bin/phpunit\" --testsuite unit --colors=always --configuration tests/Unit/phpunit.xml.dist --coverage-php tests/report/unit.cov"
     }
 }
