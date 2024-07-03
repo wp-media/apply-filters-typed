@@ -9,6 +9,13 @@
             "email": "contact@wp-media.me"
         }
     ],
+    "config": {
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
+		}
+	},
     "require-dev": {
         "phpcompatibility/phpcompatibility-wp": "^2.0",
         "szepeviktor/phpstan-wordpress": "^1.3",
