@@ -22,7 +22,7 @@ function wpm_apply_filters_typesafe( $hook_name, $value, ...$args ) {
  * @return mixed The filtered value after all hooked functions are applied to it.
  */
 function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
-	$next_value = apply_filters( $hook_name, $value, ...$args );
+	$next_value = apply_filters( $hook_name, $value, ...$args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 	if ( ! wpm_is_type( $type, $next_value ) ) {
 		return $value;
@@ -66,7 +66,18 @@ function wpm_is_type( $type, $value ) {
 			return false;
 		case 'mixed':
 			return true;
+		case 'absint':
+			return absint( $value );
 		default:
-			return is_a( $value, $type ) || is_subclass_of( $value, $type );
+			/**
+			 * Filters whether the variable is of the type.
+			 * The dynamic portion of the hook name, `$type`, refers to the type of the variable.
+			 *
+			 * @since 1.0
+			 *
+			 * @param bool  $is_type Is the variable of the type. Default false.
+			 * @param mixed $value The variable to check.
+			 */
+			return apply_filters( "wpm_is_type_{$type}", false, $value );
 	}
 }
