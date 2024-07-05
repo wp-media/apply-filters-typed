@@ -66,8 +66,6 @@ function wpm_is_type( $type, $value ) {
 			return false;
 		case 'mixed':
 			return true;
-		case 'absint':
-			return absint( $value );
 		default:
 			/**
 			 * Filters whether the variable is of the type.

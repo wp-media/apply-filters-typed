@@ -81,14 +81,9 @@ return [
 		1,
 		false,
 	],
-	'testIsAbsInt' => [
-		'absint',
+	'testIsUnknownType' => [
+		'unknown_type',
 		1,
-		true,
-	],
-	'testIsNotAbsInt' => [
-		'absint',
-		1.1,
 		false,
 	],
 ];
