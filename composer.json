@@ -30,7 +30,7 @@
     },
     "autoload-dev": {
 		"psr-4": {
-			"WP_Media\\ApplyFiltersTyped\\Tests\\": "tests/"
+			"WPMedia\\ApplyFiltersTyped\\Tests\\": "tests/"
 		}
 	},
     "scripts": {
