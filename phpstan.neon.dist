@@ -1,0 +1,6 @@
+includes:
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+parameters:
+	level: 0
+	paths:
+		- %currentWorkingDirectory%/functions.php
