@@ -8,7 +8,12 @@ This can cause unexpected errors in your code if you do some processing with thi
 
 This library is a way to solve this problem, by introducing functions that are applying strict type checking.
 
-It is also a a proof of concept for a WordPress change that has been proposed in this core ticket: https://core.trac.wordpress.org/ticket/51525
+It is also a a proof of concept for a WordPress change that has been proposed in this core ticket: https://core.trac.wordpress.org/ticket/51525.
+
+## Limitation
+If the end value type returned by the filter doesn't match the initial value type, the end value is discarded and the initial (default) one is returned. It's a limitation caused by the impossibility to access the internals of the hook system.
+
+The patch proposed to core handles the situation better, discarding callbacks that return an unexpected type instead of discarding the final value.
 
 ##  Installation
 You can install the library using composer:
