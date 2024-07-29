@@ -12,6 +12,8 @@ class TestWpmApplyFiltersTypesafe extends TestCase {
 	 * @dataProvider configTestData
 	 */
 	public function testShouldReturnExpected( $value, $filter_return, $warning, $expected ) {
+		$this->stubEscapeFunctions();
+
 		Filters\expectApplied( 'hook_name' )
 			->once()
 			->with( $value )
