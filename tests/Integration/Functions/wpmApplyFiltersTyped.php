@@ -18,10 +18,14 @@ class TestWpmApplyFiltersTyped extends TestCase {
 	/**
 	 * @dataProvider configTestData
 	 */
-	public function testShouldReturnExpected( $type, $value, $filter_return, $expected ) {
+	public function testShouldReturnExpected( $type, $value, $filter_return, $warning, $expected ) {
 		$this->filter_value = $filter_return;
 
 		add_filter( 'hook_name', [ $this, 'return_filter_value' ] );
+
+		if ( $warning ) {
+			$this->setExpectedIncorrectUsage( 'wpm_apply_filters_typed' );
+		}
 
 		$this->assertSame(
 			$expected,

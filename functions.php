@@ -25,6 +25,8 @@ function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
 	$next_value = apply_filters( $hook_name, $value, ...$args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 	if ( ! wpm_is_type( $type, $next_value ) ) {
+		_doing_it_wrong( __FUNCTION__, sprintf( 'Return value of "%1$s" filter must be of the type "%2$s", "%3$s" returned.', esc_attr( $hook_name ), esc_attr( $type ), esc_attr( gettype( $next_value ) ) ), '1.0.1' );
+
 		return $value;
 	}
 
