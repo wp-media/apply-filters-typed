@@ -13,6 +13,8 @@ It is also a a proof of concept for a WordPress change that has been proposed in
 ## Limitation
 If the end value type returned by the filter doesn't match the initial value type, the end value is discarded and the initial (default) one is returned. It's a limitation caused by the impossibility to access the internals of the hook system.
 
+If the value is discarded, an error message will be added to the error.log when `WP_DEBUG` is enabled: `Return value of "hook_name" filter must be of the type "expected", "unexpected" returned.`
+
 The patch proposed to core handles the situation better, discarding callbacks that return an unexpected type instead of discarding the final value.
 
 ##  Installation
