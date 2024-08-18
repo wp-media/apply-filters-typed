@@ -67,9 +67,11 @@ jobs:
       run: composer run-tests
 
     - name: Code Coverage Report
+      if: ${{ matrix.php-versions == '8.2' }}
       run: composer report-code-coverage
 
     - name: Run codacy-coverage-reporter
+      if: ${{ matrix.php-versions == '8.2' }}
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
