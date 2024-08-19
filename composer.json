@@ -41,6 +41,7 @@
         "run-tests": [
 			"@test-unit",
 			"@test-integration"
-		]
+		],
+		"report-code-coverage": "\"vendor/bin/phpcov\" merge tests/report --clover tests/report/coverage.clover"
     }
 }
