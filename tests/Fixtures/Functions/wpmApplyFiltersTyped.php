@@ -29,4 +29,11 @@ return [
 		'warning' => false,
 		'expected' => null,
 	],
+	'testShouldReturnOriginalWhenUnionTypeNotMatched' => [
+		'type' => 'NULL|string',
+		'value' => 'string',
+		'filter_return' => 0,
+		'warning' => true,
+		'expected' => 'string',
+	],
 ];
