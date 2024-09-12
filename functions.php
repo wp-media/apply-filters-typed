@@ -56,6 +56,8 @@ function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
  * @return bool Whether the variable is of the type.
  */
 function wpm_is_type( $type, $value ) {
+	$type = strtolower( $type );
+
 	switch ( $type ) {
 		case 'boolean':
 			return is_bool( $value );
@@ -72,8 +74,12 @@ function wpm_is_type( $type, $value ) {
 		case 'resource':
 		case 'resource (closed)':
 			return is_resource( $value );
-		case 'NULL':
+		case 'null':
 			return is_null( $value );
+		case 'false':
+			return false === $value;
+		case 'true':
+			return true === $value;
 		case 'unknown_type':
 			return false;
 		default:
