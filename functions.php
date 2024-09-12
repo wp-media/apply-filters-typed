@@ -24,13 +24,23 @@ function wpm_apply_filters_typesafe( $hook_name, $value, ...$args ) {
 function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
 	$next_value = apply_filters( $hook_name, $value, ...$args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
-	if ( ! wpm_is_type( $type, $next_value ) ) {
-		_doing_it_wrong( __FUNCTION__, sprintf( 'Return value of "%1$s" filter must be of the type "%2$s", "%3$s" returned.', esc_attr( $hook_name ), esc_attr( $type ), esc_attr( gettype( $next_value ) ) ), '1.0.1' );
+	$types = [ $type ];
 
-		return $value;
+	// Union types are separated by a pipe character.
+	if ( preg_match( '/\|/i', $type ) ) {
+		$types = explode( '|', $type );
 	}
 
-	return $next_value;
+	foreach ( $types as $type ) {
+		if ( wpm_is_type( $type, $next_value ) ) {
+			return $next_value;
+		}
+	}
+
+	// None of the types matched.
+	_doing_it_wrong( __FUNCTION__, sprintf( 'Return value of "%1$s" filter must be of the type "%2$s", "%3$s" returned.', esc_attr( $hook_name ), esc_attr( $type ), esc_attr( gettype( $next_value ) ) ), '1.0.1' );
+
+	return $value;
 }
 
 /**
@@ -46,6 +56,8 @@ function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
  * @return bool Whether the variable is of the type.
  */
 function wpm_is_type( $type, $value ) {
+	$type = strtolower( $type );
+
 	switch ( $type ) {
 		case 'boolean':
 			return is_bool( $value );
@@ -62,8 +74,12 @@ function wpm_is_type( $type, $value ) {
 		case 'resource':
 		case 'resource (closed)':
 			return is_resource( $value );
-		case 'NULL':
+		case 'null':
 			return is_null( $value );
+		case 'false':
+			return false === $value;
+		case 'true':
+			return true === $value;
 		case 'unknown_type':
 			return false;
 		default:
