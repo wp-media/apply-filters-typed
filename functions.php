@@ -58,6 +58,14 @@ function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
 function wpm_is_type( $type, $value ) {
 	$type = strtolower( $type );
 
+	if ( '?' === substr( $type, 0, 1 ) ) {
+		$type = substr( $type, 1 );
+
+		if ( is_null( $value ) ) {
+			return true;
+		}
+	}
+
 	switch ( $type ) {
 		case 'boolean':
 			return is_bool( $value );

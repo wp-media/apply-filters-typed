@@ -36,4 +36,18 @@ return [
 		'warning' => true,
 		'expected' => 'string',
 	],
+	'testShouldReturnStringWhenNullable' => [
+		'type' => '?string',
+		'value' => 'string',
+		'filter_return' => 'string',
+		'warning' => false,
+		'expected' => 'string',
+	],
+	'testShouldReturnNullWhenNullable' => [
+		'type' => '?string',
+		'value' => 'string',
+		'filter_return' => null,
+		'warning' => false,
+		'expected' => null,
+	],
 ];
