@@ -58,12 +58,30 @@ function wpm_apply_filters_typed( $type, $hook_name, $value, ...$args ) {
 function wpm_is_type( $type, $value ) {
 	$type = strtolower( $type );
 
+	// Check if the type is nullable.
 	if ( '?' === substr( $type, 0, 1 ) ) {
 		$type = substr( $type, 1 );
 
 		if ( is_null( $value ) ) {
 			return true;
 		}
+	}
+
+	// Check if the type is an array of a certain type.
+	if ( '[]' === substr( $type, -2 ) ) {
+		if ( ! is_array( $value ) ) {
+			return false;
+		}
+
+		$type = substr( $type, 0, -2 );
+
+		foreach ( $value as $item ) {
+			if ( ! wpm_is_type( $type, $item ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	switch ( $type ) {
