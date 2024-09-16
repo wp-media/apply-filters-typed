@@ -38,13 +38,18 @@ In the context of WordPress, the common types would be:
 - double
 - string
 - array
-- object 
+- object
+
+Since v1.2, the following are also supported:
+- Union types (i.e. `int|string`)
+- Nullable types (i.e. `?string`)
+- Typed arrays (i.e. `string[]`)
 
 ##  Create your own type validation
-If you have a need for more complex type validation of the value passed to the filter, for example in case of an array that should only have values with a specific type, you can use the dynamic filter `wpm_is_type_{$type}`, where `$type` would match with the `$type` value you pass to `wpm_apply_filters_typed()`.
+If you have a need for more complex type validation of the value passed to the filter, for example in case of an array composed of items of a specific instance, you can use the dynamic filter `wpm_is_type_{$type}`, where `$type` would match with the `$type` value you pass to `wpm_apply_filters_typed()`.
 
 Here is an example to do custom type validation on an array of strings:
- `wpm_apply_filters_typed( 'string[]', 'filter_this_array', $value );`
+ `wpm_apply_filters_typed( 'Product[]', 'filter_this_array', $value );`
  
     add_filter( 'wpm_is_type_string[], function( $value ) {
         if ( ! is_array( $value ) ) {
@@ -52,7 +57,7 @@ Here is an example to do custom type validation on an array of strings:
         }
  
         foreach ( $value as $val ) {
-            if ( ! is_string( $val ) ) {
+            if ( ! $val instanceOf Product ) {
                 return false;
             }
         }
