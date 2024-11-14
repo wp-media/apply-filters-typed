@@ -50,17 +50,19 @@ If you have a need for more complex type validation of the value passed to the f
 
 Here is an example to do custom type validation on an array of strings:
  `wpm_apply_filters_typed( 'Product[]', 'filter_this_array', $value );`
- 
-    add_filter( 'wpm_is_type_string[], function( $value ) {
-        if ( ! is_array( $value ) ) {
-            return false;
-        }
- 
-        foreach ( $value as $val ) {
-            if ( ! $val instanceOf Product ) {
-                return false;
-            }
-        }
- 
-	    return true;
-    } );
+
+```php
+add_filter( 'wpm_is_type_string[]', function( $value ) {
+	if ( ! is_array( $value ) ) {
+	    return false;
+	}
+	
+	foreach ( $value as $val ) {
+	    if ( ! $val instanceOf Product ) {
+		return false;
+	    }
+	}
+
+	return true;
+} );
+```
